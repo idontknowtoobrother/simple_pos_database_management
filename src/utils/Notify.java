@@ -21,6 +21,12 @@ public class Notify {
         JOptionPane.showMessageDialog(component, jlDescription, title, enumType);
     }
 
+    public static boolean confirmOption(Component component, String title, String description) {
+        JLabel jlDescription = createLabelText(description);
+        int confirmed = JOptionPane.showConfirmDialog(component, jlDescription, title, JOptionPane.YES_NO_OPTION);
+        return confirmed == JOptionPane.YES_OPTION;
+    }
+    
     // create label text because we have to using font support thai
     // so we can use createLableText for it and using with another component or frame
     public static JLabel createLabelText(String msg) {
