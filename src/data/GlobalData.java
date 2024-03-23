@@ -36,6 +36,10 @@ public class GlobalData {
         return currentLoginnedUser != null;
     }
 
+    public void logout() {
+        currentLoginnedUser = null;
+    }
+
     public void setCurrentLoginnedUser(User user) {
         if (currentLoginnedUser == null) {
             currentLoginnedUser = user;

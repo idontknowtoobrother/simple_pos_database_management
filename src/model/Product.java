@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,19 +13,21 @@ import java.util.Date;
  * @author hexademical
  */
 public class Product {
+
     private int productId;
     private String name;
     private String description;
     private double price;
     private int totalAvailable;
-    private Date createdAt;
-    private Date updatedAt;
-    private Date deleteAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+    private Timestamp deleteAt;
 
     // Constructors
-    public Product() {}
+    public Product() {
+    }
 
-    public Product(int productId, String name, String description, double price, int totalAvailable, Date createdAt, Date updatedAt, Date deleteAt) {
+    public Product(int productId, String name, String description, double price, int totalAvailable, Timestamp createdAt, Timestamp updatedAt, Timestamp deleteAt) {
         this.productId = productId;
         this.name = name;
         this.description = description;
@@ -74,45 +79,60 @@ public class Product {
         this.totalAvailable = totalAvailable;
     }
 
-    public Date getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public String getCreatedAtLabel() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date(createdAt.getTime()));
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public String getUpdatedAtLabel() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date(updatedAt.getTime()));
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
+
     public boolean isRemovedFromStore() {
         return deleteAt != null;
     }
-    
-    public Date getDeleteAt() {
+
+    public Timestamp getDeleteAt() {
         return deleteAt;
     }
 
-    public void setDeleteAt(Date deleteAt) {
+    public String getDeleteAtLabel() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date(deleteAt.getTime()));
+    }
+
+    public void setDeleteAt(Timestamp deleteAt) {
         this.deleteAt = deleteAt;
     }
 
     // toString method
     @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", totalAvailable=" + totalAvailable +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return "Product{"
+                + "productId=" + productId
+                + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", price=" + price
+                + ", totalAvailable=" + totalAvailable
+                + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt
+                + '}';
     }
 }

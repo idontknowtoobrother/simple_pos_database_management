@@ -12,7 +12,7 @@ import data.GlobalData;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.CallableStatement;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import model.Enums;
 import model.Product;
@@ -91,9 +91,9 @@ public class DatabaseService {
                             String description = rs.getString("description");
                             double price = rs.getDouble("price");
                             int totalAvailable = rs.getInt("total_available");
-                            Date created_at = rs.getDate("created_at");
-                            Date updated_at = rs.getDate("updated_at");
-                            Date delete_at = rs.getDate("deleted_at");
+                            Timestamp created_at = rs.getTimestamp("created_at");
+                            Timestamp updated_at = rs.getTimestamp("updated_at");
+                            Timestamp delete_at = rs.getTimestamp("deleted_at");
                             Product product = new Product(productId, productName, description, price, totalAvailable, created_at, updated_at, delete_at);
                             products.add(product);
                         }
@@ -127,7 +127,6 @@ public class DatabaseService {
                     stmt.setInt(5, updateProduct.getTotalAvailable());
                     stmt.execute();
 
-                    
                     return 1;
                 }
             } catch (SQLException e) {
@@ -136,23 +135,24 @@ public class DatabaseService {
                 close();
             }
         }
-        
+
         return Enums.ErrorType.CONNECTION_DATABASE_TIMEOUT.getValue();
     }
-    
-    public int addNewProduct(Product newProduct) {
+
+    public int addNewProduct(int employeeId, Product newProduct) {
         Connection conn = getConnection();
         if (conn != null) {
             try {
                 // เรียกใช้ stored procedure
-                String query = "{CALL addNewProduct(?, ?, ?, ?)}";
+                String query = "{CALL addNewProduct(?, ?, ?, ?, ?)}";
                 try (CallableStatement stmt = conn.prepareCall(query)) {
-                    stmt.setString(1, newProduct.getName());
-                    stmt.setString(2, newProduct.getDescription());
-                    stmt.setDouble(3, newProduct.getPrice());
-                    stmt.setInt(4, newProduct.getTotalAvailable());
+                    stmt.setInt(1, employeeId);
+                    stmt.setString(2, newProduct.getName());
+                    stmt.setString(3, newProduct.getDescription());
+                    stmt.setDouble(4, newProduct.getPrice());
+                    stmt.setInt(5, newProduct.getTotalAvailable());
                     stmt.execute();
-                    
+
                     return 1;
                 }
             } catch (SQLException e) {
@@ -161,10 +161,10 @@ public class DatabaseService {
                 close();
             }
         }
-        
+
         return Enums.ErrorType.CONNECTION_DATABASE_TIMEOUT.getValue();
     }
-    
+
     public int deleteProductById(int productId) {
         if (productId == -1) {
             return Enums.ErrorType.PRODUCT_ID_MUST_POSITIVE_NUMBER.getValue();
@@ -186,11 +186,9 @@ public class DatabaseService {
                 close();
             }
         }
-        
+
         return Enums.ErrorType.CONNECTION_DATABASE_TIMEOUT.getValue();
     }
-    
-    
 
     private boolean connect() {
         try {

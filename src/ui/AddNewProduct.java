@@ -4,6 +4,10 @@
  */
 package ui;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import data.GlobalData;
+import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import model.Product;
 import utils.DatabaseService;
@@ -21,6 +25,9 @@ public class AddNewProduct extends javax.swing.JFrame {
     public AddNewProduct() {
         initComponents();
         this.setVisible(true);
+
+        getContentPane().setBackground(new Color(26, 35, 39));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
 
     /**
@@ -45,26 +52,55 @@ public class AddNewProduct extends javax.swing.JFrame {
         newProductDescriptionTextArea = new javax.swing.JTextArea();
         addNewProductButton = new javax.swing.JButton();
         cancelAddProductButton = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add Product");
+        setBackground(new java.awt.Color(26, 35, 39));
+        setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Add Product");
 
         jLabel2.setFont(new java.awt.Font("Noto Sans Thai", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(201, 209, 217));
         jLabel2.setText("เพิ่มสินค้าใหม่");
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Name :");
 
+        newProductNameTextField.setBackground(new java.awt.Color(94, 94, 94));
         newProductNameTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        newProductNameTextField.setForeground(new java.awt.Color(201, 209, 217));
+        newProductNameTextField.setText("ชื่อสินค้า");
+        newProductNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                newProductNameTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newProductNameTextFieldFocusLost(evt);
+            }
+        });
         newProductNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newProductNameTextFieldActionPerformed(evt);
             }
         });
 
+        newProductPriceTextField.setBackground(new java.awt.Color(94, 94, 94));
         newProductPriceTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        newProductPriceTextField.setForeground(new java.awt.Color(201, 209, 217));
+        newProductPriceTextField.setText("ราคาสินค้า");
+        newProductPriceTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                newProductPriceTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newProductPriceTextFieldFocusLost(evt);
+            }
+        });
         newProductPriceTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newProductPriceTextFieldActionPerformed(evt);
@@ -72,12 +108,25 @@ public class AddNewProduct extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Price :");
 
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Total :");
 
+        newProductTotalTextField.setBackground(new java.awt.Color(94, 94, 94));
         newProductTotalTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        newProductTotalTextField.setForeground(new java.awt.Color(201, 209, 217));
+        newProductTotalTextField.setText("จำนวนสินค้า");
+        newProductTotalTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                newProductTotalTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newProductTotalTextFieldFocusLost(evt);
+            }
+        });
         newProductTotalTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newProductTotalTextFieldActionPerformed(evt);
@@ -85,14 +134,29 @@ public class AddNewProduct extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Description :");
 
+        newProductDescriptionTextArea.setBackground(new java.awt.Color(94, 94, 94));
         newProductDescriptionTextArea.setColumns(20);
+        newProductDescriptionTextArea.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        newProductDescriptionTextArea.setForeground(new java.awt.Color(201, 209, 217));
         newProductDescriptionTextArea.setRows(5);
+        newProductDescriptionTextArea.setText("รายละเอียดสินค้า");
+        newProductDescriptionTextArea.setOpaque(false);
+        newProductDescriptionTextArea.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                newProductDescriptionTextAreaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newProductDescriptionTextAreaFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(newProductDescriptionTextArea);
 
-        addNewProductButton.setBackground(new java.awt.Color(61, 127, 161));
+        addNewProductButton.setBackground(new java.awt.Color(62, 165, 115));
         addNewProductButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        addNewProductButton.setForeground(new java.awt.Color(255, 255, 255));
         addNewProductButton.setText("เพิ่ม");
         addNewProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +164,9 @@ public class AddNewProduct extends javax.swing.JFrame {
             }
         });
 
+        cancelAddProductButton.setBackground(new java.awt.Color(61, 127, 161));
         cancelAddProductButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        cancelAddProductButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelAddProductButton.setText("ยกเลิก");
         cancelAddProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,68 +174,84 @@ public class AddNewProduct extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/add68x68.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel7)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel3)
+                        .addGap(6, 6, 6)
+                        .addComponent(newProductNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel4)
+                        .addGap(12, 12, 12)
+                        .addComponent(newProductPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel5)
+                        .addGap(12, 12, 12)
+                        .addComponent(newProductTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addNewProductButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelAddProductButton))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(newProductNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(newProductTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(newProductPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(cancelAddProductButton)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel2)))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(newProductNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(newProductPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(newProductTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelAddProductButton)
-                    .addComponent(addNewProductButton))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addNewProductButton)
+                    .addComponent(cancelAddProductButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(733, 558));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void newProductNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProductNameTextFieldActionPerformed
@@ -195,31 +277,43 @@ public class AddNewProduct extends javax.swing.JFrame {
         String productDescription = newProductDescriptionTextArea.getText();
 
         // Validate productName is not empty
-        if (productName.isEmpty()) {
+        if (productName.isEmpty() || productName.equals("ชื่อสินค้า")) {
             // แจ้งเตือนเมื่อชื่อสินค้าว่าง
             Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกชื่อสินค้า", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // Validate productPrice is a valid double
+        if (productPriceStr.equals("ราคาสินค้า")) {
+            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกราคาที่ถูกต้อง เช่น 40.00", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         try {
             double productPrice = Double.parseDouble(productPriceStr);
         } catch (NumberFormatException e) {
             // แจ้งเตือนเมื่อราคาสินค้าไม่ถูกต้อง
-            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกราคาที่ถูกต้อง", JOptionPane.ERROR_MESSAGE);
+            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกราคาที่ถูกต้อง เช่น 40.00", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // Validate productTotal is a valid integer
+        if (productTotalStr.equals("จำนวนสินค้า")) {
+            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกจำนวนสินค้าที่มีให้ให้ถูกต้อง เช่น 50", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         try {
             int productTotal = Integer.parseInt(productTotalStr);
         } catch (NumberFormatException e) {
             // แจ้งเตือนเมื่อจำนวนสินค้าที่มีให้ไม่ถูกต้อง
-            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกจำนวนสินค้าที่มีให้ให้ถูกต้อง", JOptionPane.ERROR_MESSAGE);
+            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกจำนวนสินค้าที่มีให้ให้ถูกต้อง เช่น 50", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
+        
         // Validate productDescription is not empty
+        if (productDescription.equals("รายละเอียดสินค้า")) {
+            Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกคำอธิบายสินค้า", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         if (productDescription.isEmpty()) {
             // แจ้งเตือนเมื่อคำอธิบายสินค้าว่าง
             Notify.showNotify(this, "ข้อผิดพลาด", "กรุณากรอกคำอธิบายสินค้า", JOptionPane.ERROR_MESSAGE);
@@ -251,41 +345,74 @@ public class AddNewProduct extends javax.swing.JFrame {
         // ปุ่มยืนยันการเพิ่มสินค้าใหม่ พร้อมข้อมูลที่กรอกเข้าไป
         if (Notify.confirmOption(this, "ยืนยันการเพิ่มสินค้าใหม่", "คุณต้องการเพิ่มสินค้า " + newProduct.getName() + " ใหม่ใช่หรือไม่?")) {
             // แจ้งเตือนเมื่อสินค้าถูกเพิ่มเข้าไปในฐานข้อมูล
-            if (DatabaseService.getInstance().addNewProduct(newProduct) == 1) {
+            if (DatabaseService.getInstance().addNewProduct(GlobalData.getInstance().getCurrentLoginnedUser().getUserId(), newProduct) == 1) {
                 Notify.showNotify(this, "สำเร็จ", "เพิ่มสินค้าใหม่เรียบร้อยแล้ว", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }
         }
     }//GEN-LAST:event_addNewProductButtonActionPerformed
 
+    private void newProductNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductNameTextFieldFocusGained
+        if (newProductNameTextField.getText().equals("ชื่อสินค้า")) {
+            newProductNameTextField.setText("");
+            newProductNameTextField.setForeground(new Color(255, 255, 255));
+        }
+    }//GEN-LAST:event_newProductNameTextFieldFocusGained
+
+    private void newProductNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductNameTextFieldFocusLost
+        if (newProductNameTextField.getText().equals("")) {
+            newProductNameTextField.setText("ชื่อสินค้า");
+            newProductNameTextField.setForeground(new Color(201, 209, 217));
+        }
+    }//GEN-LAST:event_newProductNameTextFieldFocusLost
+
+    private void newProductPriceTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductPriceTextFieldFocusGained
+        if (newProductPriceTextField.getText().equals("ราคาสินค้า")) {
+            newProductPriceTextField.setText("");
+            newProductPriceTextField.setForeground(new Color(255, 255, 255));
+        }
+    }//GEN-LAST:event_newProductPriceTextFieldFocusGained
+
+    private void newProductPriceTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductPriceTextFieldFocusLost
+        if (newProductPriceTextField.getText().equals("")) {
+            newProductPriceTextField.setText("ราคาสินค้า");
+            newProductPriceTextField.setForeground(new Color(201, 209, 217));
+        }
+    }//GEN-LAST:event_newProductPriceTextFieldFocusLost
+
+    private void newProductTotalTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductTotalTextFieldFocusGained
+        if (newProductTotalTextField.getText().equals("จำนวนสินค้า")) {
+            newProductTotalTextField.setText("");
+            newProductTotalTextField.setForeground(new Color(255, 255, 255));
+        }
+    }//GEN-LAST:event_newProductTotalTextFieldFocusGained
+
+    private void newProductTotalTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductTotalTextFieldFocusLost
+        if (newProductTotalTextField.getText().equals("")) {
+            newProductTotalTextField.setText("จำนวนสินค้า");
+            newProductTotalTextField.setForeground(new Color(201, 209, 217));
+        }
+    }//GEN-LAST:event_newProductTotalTextFieldFocusLost
+
+    private void newProductDescriptionTextAreaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductDescriptionTextAreaFocusGained
+        if (newProductDescriptionTextArea.getText().equals("รายละเอียดสินค้า")) {
+            newProductDescriptionTextArea.setText("");
+            newProductDescriptionTextArea.setForeground(new Color(255, 255, 255));
+        }
+    }//GEN-LAST:event_newProductDescriptionTextAreaFocusGained
+
+    private void newProductDescriptionTextAreaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newProductDescriptionTextAreaFocusLost
+        if (newProductDescriptionTextArea.getText().equals("")) {
+            newProductDescriptionTextArea.setText("รายละเอียดสินค้า");
+            newProductDescriptionTextArea.setForeground(new Color(201, 209, 217));
+        }
+    }//GEN-LAST:event_newProductDescriptionTextAreaFocusLost
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddNewProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddNewProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddNewProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddNewProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        FlatDarkLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -303,6 +430,7 @@ public class AddNewProduct extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea newProductDescriptionTextArea;
     private javax.swing.JTextField newProductNameTextField;

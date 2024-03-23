@@ -4,14 +4,25 @@
  */
 package ui;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
 import data.GlobalData;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import model.Enums;
 import model.Product;
 import utils.DatabaseService;
@@ -28,7 +39,14 @@ public class DatabaseApplication extends javax.swing.JFrame {
      */
     public DatabaseApplication() {
         initComponents();
-        setScreen(Enums.Menu.StockManagement.getValue());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+        mainMenuBar.setVisible(false);
+        
+        JTableHeader productTableHeader = productJTable.getTableHeader();
+     
+        productTableHeader.setFont(new Font("Noto Sans Thai", Font.PLAIN, 13));
+
+        setScreen(Enums.Menu.Login.getValue());
 
         productJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
@@ -52,6 +70,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
     }
 
     public void filterProducts() {
+        if (searchTextField.getText().equals("ข้อมูลการค้นหา...")) {
+            return;
+        }
         String searchQueryString = searchTextField.getText().toLowerCase().trim();
         String filterType = filterTypes.getSelectedItem().toString().toLowerCase();
         System.out.println("searchQueryString->" + filterType);
@@ -139,6 +160,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
         jlThaiTitle2 = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         panelStockManagement = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productJTable = new javax.swing.JTable();
@@ -161,15 +183,24 @@ public class DatabaseApplication extends javax.swing.JFrame {
         productDescriptionTextArea = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         deletedInfoText = new javax.swing.JLabel();
+        mainMenuBar = new javax.swing.JMenuBar();
+        userInfoMenu = new javax.swing.JMenu();
+        userInfoMenuItem = new javax.swing.JMenuItem();
+        logoutApplication = new javax.swing.JMenuItem();
+        managementMenu = new javax.swing.JMenu();
+        gotoStockManagement = new javax.swing.JMenuItem();
+        gotoEmployeeManagement = new javax.swing.JMenuItem();
+        gotoEmployeeManagement1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Simple POS Database Management");
+        setTitle("DEMO POS Database Management (Only Stocks Product)");
         setBackground(new java.awt.Color(26, 35, 39));
         setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
         setIconImages(null);
         setLocation(new java.awt.Point(50, 50));
         setName("application"); // NOI18N
         setResizable(false);
+        setSize(new java.awt.Dimension(800, 622));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tpWindows.setBackground(new java.awt.Color(26, 35, 39));
@@ -184,15 +215,15 @@ public class DatabaseApplication extends javax.swing.JFrame {
         panelLogin.setBackground(new java.awt.Color(26, 35, 39));
         panelLogin.setForeground(new java.awt.Color(255, 255, 255));
         panelLogin.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
-        panelLogin.setMaximumSize(new java.awt.Dimension(800, 600));
-        panelLogin.setMinimumSize(new java.awt.Dimension(800, 600));
-        panelLogin.setPreferredSize(new java.awt.Dimension(800, 600));
+        panelLogin.setMaximumSize(new java.awt.Dimension(800, 700));
+        panelLogin.setMinimumSize(new java.awt.Dimension(800, 700));
+        panelLogin.setPreferredSize(new java.awt.Dimension(800, 700));
 
         jlEngTitle.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jlEngTitle.setForeground(new java.awt.Color(255, 255, 255));
         jlEngTitle.setText("SIMPLE POS DATABASE MANAGEMENT");
 
-        jlThaiTitle.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        jlThaiTitle.setFont(new java.awt.Font("Noto Sans Thai", 0, 18)); // NOI18N
         jlThaiTitle.setForeground(new java.awt.Color(201, 209, 217));
         jlThaiTitle.setText("จัดการฐานข้อมูลร้านขายของทั่วไป");
 
@@ -200,28 +231,44 @@ public class DatabaseApplication extends javax.swing.JFrame {
         jlLicense.setForeground(new java.awt.Color(201, 209, 217));
         jlLicense.setText("Develop by 62160246, 62160242 BUU Students");
 
-        jlThaiTitle1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jlThaiTitle1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jlThaiTitle1.setForeground(new java.awt.Color(255, 255, 255));
         jlThaiTitle1.setText("Email");
 
-        emailTextField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        emailTextField.setBackground(new java.awt.Color(26, 35, 39));
+        emailTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 15)); // NOI18N
+        emailTextField.setForeground(new java.awt.Color(201, 209, 217));
+        emailTextField.setText("กรุณาใส่อีเมล...");
         emailTextField.setActionCommand("<Not Set>");
-        emailTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        emailTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(217, 217, 217)));
         emailTextField.setCaretColor(new java.awt.Color(255, 255, 255));
         emailTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        emailTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailTextFieldFocusLost(evt);
+            }
+        });
         emailTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailTextFieldActionPerformed(evt);
             }
         });
 
-        jlThaiTitle2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jlThaiTitle2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jlThaiTitle2.setForeground(new java.awt.Color(255, 255, 255));
         jlThaiTitle2.setText("Password");
 
-        passwordTextField.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
+        passwordTextField.setBackground(new java.awt.Color(26, 35, 39));
+        passwordTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 15)); // NOI18N
+        passwordTextField.setForeground(new java.awt.Color(201, 209, 217));
+        passwordTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(217, 217, 217)));
 
-        loginButton.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        loginButton.setBackground(new java.awt.Color(61, 127, 161));
+        loginButton.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,53 +276,74 @@ public class DatabaseApplication extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/logo68x68.png"))); // NOI18N
+
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlLicense)
-                .addContainerGap())
             .addGroup(panelLoginLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginButton)
-                    .addComponent(jlThaiTitle2)
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(12, 12, 12)
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlEngTitle)
+                            .addComponent(jlThaiTitle)))
                     .addComponent(jlThaiTitle1)
-                    .addComponent(jlEngTitle)
-                    .addComponent(jlThaiTitle)
-                    .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(passwordTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                        .addComponent(emailTextField, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(332, Short.MAX_VALUE))
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlThaiTitle2)
+                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginButton))
+                .addGap(252, 252, 252))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlLicense)
+                .addGap(14, 14, 14))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLoginLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jlEngTitle)
-                .addGap(0, 0, 0)
-                .addComponent(jlThaiTitle)
-                .addGap(93, 93, 93)
+                .addGap(20, 20, 20)
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jlEngTitle)
+                        .addGap(0, 0, 0)
+                        .addComponent(jlThaiTitle)))
+                .addGap(120, 120, 120)
                 .addComponent(jlThaiTitle1)
                 .addGap(0, 0, 0)
-                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jlThaiTitle2)
                 .addGap(0, 0, 0)
                 .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(33, 33, 33)
                 .addComponent(loginButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                 .addComponent(jlLicense)
                 .addContainerGap())
         );
 
         tpWindows.addTab("Login", panelLogin);
 
+        panelStockManagement.setBackground(new java.awt.Color(26, 35, 39));
+
+        jScrollPane1.setBackground(new java.awt.Color(26, 35, 39));
+        jScrollPane1.setForeground(new java.awt.Color(26, 35, 39));
+        jScrollPane1.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+
+        productJTable.setFont(new java.awt.Font("Noto Sans Thai", 0, 13)); // NOI18N
         productJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -326,14 +394,34 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        productJTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        productJTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        productJTable.setRowHeight(35);
+        productJTable.setSelectionBackground(new java.awt.Color(61, 127, 161));
+        productJTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        productJTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        productJTable.getTableHeader().setReorderingAllowed(false);
         productJTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 productJTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(productJTable);
+        if (productJTable.getColumnModel().getColumnCount() > 0) {
+            productJTable.getColumnModel().getColumn(0).setMinWidth(80);
+            productJTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            productJTable.getColumnModel().getColumn(0).setMaxWidth(80);
+            productJTable.getColumnModel().getColumn(3).setMinWidth(80);
+            productJTable.getColumnModel().getColumn(3).setPreferredWidth(80);
+            productJTable.getColumnModel().getColumn(3).setMaxWidth(80);
+            productJTable.getColumnModel().getColumn(4).setMinWidth(60);
+            productJTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+            productJTable.getColumnModel().getColumn(4).setMaxWidth(60);
+        }
 
+        updateStockManagementItemButton.setBackground(new java.awt.Color(61, 127, 161));
         updateStockManagementItemButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        updateStockManagementItemButton.setForeground(new java.awt.Color(255, 255, 255));
         updateStockManagementItemButton.setText("อัพเดท");
         updateStockManagementItemButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,7 +429,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
             }
         });
 
+        addStockItemDataButton.setBackground(new java.awt.Color(61, 127, 161));
         addStockItemDataButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        addStockItemDataButton.setForeground(new java.awt.Color(255, 255, 255));
         addStockItemDataButton.setText("เพิ่มข้อมูล");
         addStockItemDataButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,8 +439,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
             }
         });
 
-        deleteStockManagementItemButton.setBackground(new java.awt.Color(255, 51, 51));
+        deleteStockManagementItemButton.setBackground(new java.awt.Color(240, 92, 92));
         deleteStockManagementItemButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        deleteStockManagementItemButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteStockManagementItemButton.setText("ลบข้อมูล");
         deleteStockManagementItemButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,7 +449,19 @@ public class DatabaseApplication extends javax.swing.JFrame {
             }
         });
 
-        searchTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        searchTextField.setBackground(new java.awt.Color(26, 35, 39));
+        searchTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
+        searchTextField.setForeground(new java.awt.Color(201, 209, 217));
+        searchTextField.setText("ข้อมูลการค้นหา...");
+        searchTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        searchTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTextFieldFocusLost(evt);
+            }
+        });
         searchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTextFieldActionPerformed(evt);
@@ -374,7 +477,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
         });
 
         filterTypes.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        filterTypes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Product ID", "Name", "Description", "Price", "Total", "Create At" }));
+        filterTypes.setForeground(new java.awt.Color(255, 255, 255));
+        filterTypes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Product ID", "Name", "Description", "Price", "Total" }));
+        filterTypes.setToolTipText("");
         filterTypes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 filterTypesItemStateChanged(evt);
@@ -387,58 +492,81 @@ public class DatabaseApplication extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Filter:");
 
         productIdTextInfo.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        productIdTextInfo.setForeground(new java.awt.Color(255, 255, 255));
         productIdTextInfo.setText("Product ID : -");
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Name :");
 
+        productNameTextField.setBackground(new java.awt.Color(94, 94, 94));
         productNameTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        productNameTextField.setForeground(new java.awt.Color(255, 255, 255));
         productNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productNameTextFieldActionPerformed(evt);
             }
         });
 
+        productPriceTextField.setBackground(new java.awt.Color(94, 94, 94));
         productPriceTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        productPriceTextField.setForeground(new java.awt.Color(255, 255, 255));
         productPriceTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productPriceTextFieldActionPerformed(evt);
             }
         });
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Price :");
 
+        productTotalTextField.setBackground(new java.awt.Color(94, 94, 94));
         productTotalTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        productTotalTextField.setForeground(new java.awt.Color(255, 255, 255));
         productTotalTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productTotalTextFieldActionPerformed(evt);
             }
         });
 
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Total :");
 
+        createAtTextInfo.setBackground(new java.awt.Color(115, 211, 130));
         createAtTextInfo.setFont(new java.awt.Font("Noto Sans Thai", 0, 13)); // NOI18N
+        createAtTextInfo.setForeground(new java.awt.Color(115, 211, 130));
         createAtTextInfo.setText("เพิ่มเข้าระบบเมื่อ : -");
 
+        updateAtTextInfo.setBackground(new java.awt.Color(255, 255, 255));
         updateAtTextInfo.setFont(new java.awt.Font("Noto Sans Thai", 0, 13)); // NOI18N
+        updateAtTextInfo.setForeground(new java.awt.Color(61, 127, 161));
         updateAtTextInfo.setText("อัพเดทล่าสุดเมื่อ : -");
 
+        productDescriptionTextArea.setBackground(new java.awt.Color(94, 94, 94));
         productDescriptionTextArea.setColumns(20);
         productDescriptionTextArea.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        productDescriptionTextArea.setForeground(new java.awt.Color(255, 255, 255));
+        productDescriptionTextArea.setLineWrap(true);
         productDescriptionTextArea.setRows(5);
         jScrollPane2.setViewportView(productDescriptionTextArea);
 
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Description :");
 
-        deletedInfoText.setFont(new java.awt.Font("Noto Sans Thai", 1, 18)); // NOI18N
-        deletedInfoText.setForeground(new java.awt.Color(204, 0, 0));
-        deletedInfoText.setText("สินค้าถูกลบออกจากคลังแล้วเมื่อ : -");
+        deletedInfoText.setFont(new java.awt.Font("Noto Sans Thai", 0, 17)); // NOI18N
+        deletedInfoText.setForeground(new java.awt.Color(240, 92, 92));
+        deletedInfoText.setText("ถูกลบออกจากคลังวันที่ -");
 
         javax.swing.GroupLayout panelStockManagementLayout = new javax.swing.GroupLayout(panelStockManagement);
         panelStockManagement.setLayout(panelStockManagementLayout);
@@ -450,11 +578,11 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStockManagementLayout.createSequentialGroup()
                         .addComponent(addStockItemDataButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(filterTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelStockManagementLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -480,32 +608,31 @@ public class DatabaseApplication extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(productNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(productIdTextInfo))))
+                        .addGap(26, 26, 26)
                         .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-                                    .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStockManagementLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(updateStockManagementItemButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteStockManagementItemButton)))))
+                                .addComponent(jLabel8)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStockManagementLayout.createSequentialGroup()
+                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addComponent(updateStockManagementItemButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteStockManagementItemButton)))
                 .addContainerGap())
         );
         panelStockManagementLayout.setVerticalGroup(
             panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStockManagementLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filterTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(addStockItemDataButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(productIdTextInfo)
                     .addComponent(jLabel8))
@@ -527,23 +654,93 @@ public class DatabaseApplication extends javax.swing.JFrame {
                         .addComponent(createAtTextInfo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateAtTextInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deletedInfoText)
-                        .addGap(0, 18, Short.MAX_VALUE))
+                        .addGap(0, 40, Short.MAX_VALUE))
                     .addGroup(panelStockManagementLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteStockManagementItemButton)
-                            .addComponent(updateStockManagementItemButton))))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE)))
+                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteStockManagementItemButton)
+                    .addComponent(updateStockManagementItemButton)
+                    .addComponent(deletedInfoText))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         tpWindows.addTab("Stock Management", panelStockManagement);
 
         getContentPane().add(tpWindows, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -38, -1, 660));
 
-        pack();
+        mainMenuBar.setBackground(new java.awt.Color(26, 35, 39));
+        mainMenuBar.setForeground(new java.awt.Color(255, 255, 255));
+        mainMenuBar.setToolTipText("");
+        mainMenuBar.setBorderPainted(false);
+        mainMenuBar.setFont(new java.awt.Font("Noto Sans Thai", 0, 11)); // NOI18N
+        mainMenuBar.setMargin(new java.awt.Insets(0, 0, 0, 50));
+
+        userInfoMenu.setForeground(new java.awt.Color(201, 209, 217));
+        userInfoMenu.setText("ผู้ใช้งาน");
+        userInfoMenu.setFocusable(false);
+        userInfoMenu.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+
+        userInfoMenuItem.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        userInfoMenuItem.setText("user_info");
+        userInfoMenuItem.setEnabled(false);
+        userInfoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userInfoMenuItemActionPerformed(evt);
+            }
+        });
+        userInfoMenu.add(userInfoMenuItem);
+
+        logoutApplication.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        logoutApplication.setText("ออกจากระบบ");
+        logoutApplication.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutApplicationActionPerformed(evt);
+            }
+        });
+        userInfoMenu.add(logoutApplication);
+
+        mainMenuBar.add(userInfoMenu);
+
+        managementMenu.setForeground(new java.awt.Color(201, 209, 217));
+        managementMenu.setText("จัดการฐานข้อมูล");
+        managementMenu.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+
+        gotoStockManagement.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        gotoStockManagement.setText("สินค้า");
+        gotoStockManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gotoStockManagementActionPerformed(evt);
+            }
+        });
+        managementMenu.add(gotoStockManagement);
+
+        gotoEmployeeManagement.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        gotoEmployeeManagement.setText("พนักงาน");
+        gotoEmployeeManagement.setEnabled(false);
+        gotoEmployeeManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gotoEmployeeManagementActionPerformed(evt);
+            }
+        });
+        managementMenu.add(gotoEmployeeManagement);
+
+        gotoEmployeeManagement1.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
+        gotoEmployeeManagement1.setText("ลูกค้า");
+        gotoEmployeeManagement1.setEnabled(false);
+        gotoEmployeeManagement1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gotoEmployeeManagement1ActionPerformed(evt);
+            }
+        });
+        managementMenu.add(gotoEmployeeManagement1);
+
+        mainMenuBar.add(managementMenu);
+
+        setJMenuBar(mainMenuBar);
+
+        setSize(new java.awt.Dimension(816, 658));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void emailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextFieldActionPerformed
@@ -552,14 +749,20 @@ public class DatabaseApplication extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         if (!validateEmailPassword()) {
-            Notify.showNotify(this, "Something's went wrong!", "Please input email and password!", 0);
+            Notify.showNotify(this, "เกิดข้อผิดพลาด!", "กรุณากรอกอีเมลและรหัสผ่าน!", 0);
             return;
         }
         DatabaseService.getInstance().login(getEmail(), getPassword());
         if (!GlobalData.getInstance().isLogginned()) {
-            Notify.showNotify(this, "Something's went wrong!", "Not found user!", 0);
+            Notify.showNotify(this, "เกิดข้อผิดพลาด!", "ไม่พบผู้ใช้!", 0);
+            return;
         }
         setScreen(Enums.Menu.StockManagement.getValue());
+        String fullname = GlobalData.getInstance().getCurrentLoginnedUser().getFirstname() + " " + GlobalData.getInstance().getCurrentLoginnedUser().getLastname();
+        String role = GlobalData.getInstance().getCurrentLoginnedUser().getRole();
+        String position = GlobalData.getInstance().getCurrentLoginnedUser().getPosition();
+        userInfoMenuItem.setText(fullname + "  (" + role + "| " + position + " ) ");
+        mainMenuBar.setVisible(true);
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void updateStockManagementItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateStockManagementItemButtonActionPerformed
@@ -603,7 +806,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
         productJTable.setEnabled(false);
 
         AddNewProduct frame = new AddNewProduct();
-        
+
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -613,6 +816,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 addStockItemDataButton.setEnabled(true);
                 searchTextField.setEnabled(true);
                 productJTable.setEnabled(true);
+                refreshJTableProducts();
                 filterProducts();
             }
         });
@@ -672,38 +876,66 @@ public class DatabaseApplication extends javax.swing.JFrame {
 
     private void filterTypesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterTypesItemStateChanged
         refreshJTableProducts();
-        searchTextField.setText("");
+        searchTextField.setText("ข้อมูลการค้นหา...");
         unSelectStockManagementItem();
     }//GEN-LAST:event_filterTypesItemStateChanged
+
+    private void searchTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusGained
+        if (searchTextField.getText().equals("ข้อมูลการค้นหา...")) {
+            searchTextField.setText("");
+            searchTextField.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTextFieldFocusGained
+
+    private void searchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusLost
+        if (searchTextField.getText().equals("")) {
+            searchTextField.setText("ข้อมูลการค้นหา...");
+            searchTextField.setForeground(new Color(201, 209, 217));
+        }
+    }//GEN-LAST:event_searchTextFieldFocusLost
+
+    private void gotoStockManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoStockManagementActionPerformed
+        setScreen(Enums.Menu.StockManagement.getValue());
+        mainMenuBar.setVisible(true);
+    }//GEN-LAST:event_gotoStockManagementActionPerformed
+
+    private void userInfoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInfoMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userInfoMenuItemActionPerformed
+
+    private void gotoEmployeeManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoEmployeeManagementActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gotoEmployeeManagementActionPerformed
+
+    private void gotoEmployeeManagement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoEmployeeManagement1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gotoEmployeeManagement1ActionPerformed
+
+    private void logoutApplicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutApplicationActionPerformed
+        GlobalData.getInstance().logout();
+        setScreen(Enums.Menu.Login.getValue());
+        mainMenuBar.setVisible(false);
+        emailTextField.setText("");
+        passwordTextField.setText("");
+    }//GEN-LAST:event_logoutApplicationActionPerformed
+
+    private void emailTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailTextFieldFocusGained
+        if(emailTextField.getText().equals("กรุณาใส่อีเมล...")) {
+            emailTextField.setText("");
+        }
+    }//GEN-LAST:event_emailTextFieldFocusGained
+
+    private void emailTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailTextFieldFocusLost
+        if(emailTextField.getText().equals("")) {
+            emailTextField.setText("กรุณาใส่อีเมล...");
+        }
+    }//GEN-LAST:event_emailTextFieldFocusLost
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DatabaseApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DatabaseApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DatabaseApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DatabaseApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        FlatDarkLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DatabaseApplication().setVisible(true);
@@ -718,10 +950,14 @@ public class DatabaseApplication extends javax.swing.JFrame {
     private javax.swing.JLabel deletedInfoText;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JComboBox<String> filterTypes;
+    private javax.swing.JMenuItem gotoEmployeeManagement;
+    private javax.swing.JMenuItem gotoEmployeeManagement1;
+    private javax.swing.JMenuItem gotoStockManagement;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -731,6 +967,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
     private javax.swing.JLabel jlThaiTitle1;
     private javax.swing.JLabel jlThaiTitle2;
     private javax.swing.JButton loginButton;
+    private javax.swing.JMenuItem logoutApplication;
+    private javax.swing.JMenuBar mainMenuBar;
+    private javax.swing.JMenu managementMenu;
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPanel panelStockManagement;
     private javax.swing.JPasswordField passwordTextField;
@@ -744,6 +983,8 @@ public class DatabaseApplication extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tpWindows;
     private javax.swing.JLabel updateAtTextInfo;
     private javax.swing.JButton updateStockManagementItemButton;
+    private javax.swing.JMenu userInfoMenu;
+    private javax.swing.JMenuItem userInfoMenuItem;
     // End of variables declaration//GEN-END:variables
 
     private void onClickedStockManagementItem() {
@@ -769,10 +1010,10 @@ public class DatabaseApplication extends javax.swing.JFrame {
             productDescriptionTextArea.setText(productDescription);
             productPriceTextField.setText(Double.toString(productPrice));
             productTotalTextField.setText(String.valueOf(productTotal));
-            createAtTextInfo.setText("เพิ่มเข้าระบบเมื่อ : " + editingProduct.getCreatedAt());
-            updateAtTextInfo.setText("อัพเดทล่าสุดเมื่อ : " + editingProduct.getUpdatedAt());
+            createAtTextInfo.setText("เพิ่มเข้าระบบเมื่อ : " + editingProduct.getCreatedAtLabel());
+            updateAtTextInfo.setText("อัพเดทล่าสุดเมื่อ : " + editingProduct.getUpdatedAtLabel());
             if (editingProduct.isRemovedFromStore()) {
-                deletedInfoText.setText("สินค้าถูกลบออกจากคลังแล้วเมื่อ : " + editingProduct.getDeleteAt());
+                deletedInfoText.setText("ลบออกจากคลังวันที่ " + editingProduct.getDeleteAtLabel());
                 deletedInfoText.setVisible(true);
                 disableEditingStckManageMentItem();
                 return;

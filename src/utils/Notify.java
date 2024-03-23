@@ -18,12 +18,12 @@ public class Notify {
     // show notify
     public static void showNotify(Component component, String title, String description, int enumType) {
         JLabel jlDescription = createLabelText(description);
-        JOptionPane.showMessageDialog(component, jlDescription, title, enumType);
+        JOptionPane.showMessageDialog(component, jlDescription, "", enumType);
     }
 
     public static boolean confirmOption(Component component, String title, String description) {
         JLabel jlDescription = createLabelText(description);
-        int confirmed = JOptionPane.showConfirmDialog(component, jlDescription, title, JOptionPane.YES_NO_OPTION);
+        int confirmed = JOptionPane.showConfirmDialog(component, jlDescription, "", JOptionPane.YES_NO_OPTION);
         return confirmed == JOptionPane.YES_OPTION;
     }
     
