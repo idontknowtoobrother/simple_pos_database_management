@@ -47,26 +47,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `updateProduct` (IN `inProductId` IN
     WHERE product_id = inProductId;
 END$$
 
-DROP TRIGGER IF EXISTS `add_product_logs`$$
-CREATE TRIGGER `add_product_logs` AFTER INSERT ON `product`
-FOR EACH ROW
-BEGIN
-  INSERT INTO add_product_logs (employee_id, product_id, created_at)
-  VALUES (NEW.add_by_employee_id, NEW.product_id, NOW());
-END$$
-
 DELIMITER ;
 
 DROP TABLE IF EXISTS `add_product_logs`;
 CREATE TABLE `add_product_logs` (
-  `log_id` int(11) NOT NULL,
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-INSERT INTO `add_product_logs` (`log_id`, `employee_id`, `product_id`, `created_at`) VALUES
-(0, 5, 0, '2024-03-23 02:56:57');
 
 DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
@@ -216,9 +206,6 @@ INSERT INTO `product` (`product_id`, `add_by_employee_id`, `name`, `description`
 (7, 6, 'New Item', 'New item description.', 50, 10, '2024-03-23 10:12:05', '2024-03-23 10:12:05', NULL);
 
 
-ALTER TABLE `add_product_logs`
-  ADD PRIMARY KEY (`log_id`);
-
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
 
@@ -246,6 +233,20 @@ ALTER TABLE `invoice_item`
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
 COMMIT;
+
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS `addProductLogs`$$
+CREATE TRIGGER `addProductLogs` AFTER INSERT ON `product`
+FOR EACH ROW
+BEGIN
+  INSERT INTO add_product_logs (employee_id, product_id, created_at)
+  VALUES (NEW.add_by_employee_id, NEW.product_id, NOW());
+END$$
+
+DELIMITER ;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
