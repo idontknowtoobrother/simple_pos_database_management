@@ -200,9 +200,9 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `add_by_employee_id`, `name`, `description`, `price`, `total_available`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 3, 'Laptop', 'High-performance laptop', 1000, 10, '2024-03-23 03:03:40', '2024-03-23 03:03:40', NULL),
 (2, 4, 'Smartphone', 'Latest smartphone model', 800, 20, '2024-03-23 03:03:40', '2024-03-23 03:03:40', NULL),
-(3, 2, 'Headphones', 'Wireless noise-canceling headphones', 200, 15, '2024-03-23 03:03:40', '2024-03-23 03:03:40', '2024-03-23 10:04:41'),
+(3, 2, 'Headphones', 'Wireless noise-canceling headphones', 200, 15, '2024-03-23 03:03:40', '2024-03-23 03:03:40', NULL),
 (4, 1, 'Tablet', 'High-resolution tablet', 500, 15, '2024-03-23 03:03:40', '2024-03-23 03:03:40', NULL),
-(5, 4, 'Smartwatch', 'Fitness and activity tracker', 250, 30, '2024-03-23 03:03:40', '2024-03-23 03:03:40', '2024-03-23 10:05:46'),
+(5, 4, 'Smartwatch', 'Fitness and activity tracker', 250, 30, '2024-03-23 03:03:40', '2024-03-23 03:03:40', NULL),
 (6, 5, 'Camera', 'Digital camera with advanced features', 50000, 10, '2024-03-23 03:03:40', '2024-03-23 03:03:40', NULL),
 (7, 6, 'New Item', 'New item description.', 50, 10, '2024-03-23 10:12:05', '2024-03-23 10:12:05', NULL);
 
