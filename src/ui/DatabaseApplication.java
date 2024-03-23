@@ -688,7 +688,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         if (!validateEmailPassword()) {
-            if (getEmail().isEmpty()) {
+            if (getEmail().isEmpty() || getEmail().contains("กรุณาใส่อีเมล...")) {
                 Notify.showNotify(this, "เกิดข้อผิดพลาด!", "กรุณากรอกอีเมล เช่น foo@gmail.com", 0);
                 return;
             }
