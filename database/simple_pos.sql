@@ -185,7 +185,7 @@ INSERT INTO `invoice_item` (`invoice_item_id`, `invoice_id`, `product_id`, `quan
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
-  `product_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `add_by_employee_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -193,7 +193,8 @@ CREATE TABLE `product` (
   `total_available` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `product` (`product_id`, `add_by_employee_id`, `name`, `description`, `price`, `total_available`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -229,9 +230,6 @@ ALTER TABLE `invoice_item`
   ADD PRIMARY KEY (`invoice_item_id`),
   ADD KEY `invoice_id` (`invoice_id`),
   ADD KEY `product_id` (`product_id`);
-
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`);
 COMMIT;
 
 

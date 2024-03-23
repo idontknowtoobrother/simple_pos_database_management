@@ -41,6 +41,14 @@ public class DatabaseApplication extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
         mainMenuBar.setVisible(false);
+        
+        // สร้าง instance ของ SelectionRow
+        SelectionRow customRenderer = new SelectionRow();
+
+        // กำหนด CustomTableCellRenderer เป็น renderer ของทุกคอลัมน์ใน JTable
+        for (int i = 0; i < productJTable.getColumnCount(); i++) {
+            productJTable.setDefaultRenderer(productJTable.getColumnClass(i), customRenderer);
+        }
 
         JTableHeader productTableHeader = productJTable.getTableHeader();
 
@@ -1014,6 +1022,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
             Object[] rowData = {product.getProductId(), product.getName(), product.getDescription(), product.getPrice(), product.getTotalAvailable(), product.getCreatedAt(), product.getUpdatedAt()};
             model.addRow(rowData);
         }
+        productJTable.repaint(); // อัพเดทการแสดงผลของตาราง
     }
 
     private void onOpennedScreenStockManagement() {
