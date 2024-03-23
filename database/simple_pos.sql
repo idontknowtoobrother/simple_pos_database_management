@@ -43,7 +43,7 @@ END$$
 DROP PROCEDURE IF EXISTS `updateProduct`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateProduct` (IN `inProductId` INT, IN `inProductName` VARCHAR(255), IN `inProductDesc` TEXT, IN `inProductPrice` DECIMAL(10,2), IN `inProductStock` INT)   BEGIN
     UPDATE product
-    SET name = inProductName, description = inProductDesc, price = inProductPrice, total_available = inProductStock
+    SET name = inProductName, description = inProductDesc, price = inProductPrice, total_available = inProductStock, updated_at = NOW()
     WHERE product_id = inProductId;
 END$$
 

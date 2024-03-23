@@ -5,24 +5,18 @@
 package ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
 import data.GlobalData;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import model.Enums;
 import model.Product;
 import utils.DatabaseService;
@@ -41,7 +35,19 @@ public class DatabaseApplication extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
         mainMenuBar.setVisible(false);
-        
+
+//        try {
+//            File fontStyle = new File("src/main/resources/fonts/NotoSansThai-Regular.ttf");
+//            Font noto = Font.createFont(Font.TRUETYPE_FONT, fontStyle).deriveFont(18f);
+//            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//            ge.registerFont(noto);
+//        } catch (FontFormatException ex) {
+//            Logger.getLogger(DatabaseApplication.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(DatabaseApplication.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        jlThaiTitle.setFont(new Font("Noto Sans Thai", Font.PLAIN, 18));
+
         // สร้าง instance ของ SelectionRow
         SelectionRow customRenderer = new SelectionRow();
 
@@ -49,34 +55,34 @@ public class DatabaseApplication extends javax.swing.JFrame {
         for (int i = 0; i < productJTable.getColumnCount(); i++) {
             productJTable.setDefaultRenderer(productJTable.getColumnClass(i), customRenderer);
         }
-
+        
         JTableHeader productTableHeader = productJTable.getTableHeader();
-
+        
         productTableHeader.setFont(new Font("Noto Sans Thai", Font.PLAIN, 13));
-
+        
         setScreen(Enums.Menu.Login.getValue());
-
+        
         productJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
-
+            
             @Override
             public void insertUpdate(DocumentEvent e) {
                 filterProducts();
                 unSelectStockManagementItem();
             }
-
+            
             @Override
             public void removeUpdate(DocumentEvent e) {
                 filterProducts();
                 unSelectStockManagementItem();
             }
-
+            
             @Override
             public void changedUpdate(DocumentEvent e) {
             }
         });
     }
-
+    
     public void filterProducts() {
         if (searchTextField.getText().equals("ข้อมูลการค้นหา...")) {
             return;
@@ -85,12 +91,12 @@ public class DatabaseApplication extends javax.swing.JFrame {
         String filterType = filterTypes.getSelectedItem().toString().toLowerCase();
         System.out.println("searchQueryString->" + filterType);
         System.out.println("filterType->" + searchQueryString);
-
+        
         DatabaseService.getInstance().refreshProducts();
         List<Product> products = GlobalData.getInstance().getPrducts();
         DefaultTableModel model = (DefaultTableModel) productJTable.getModel();
         model.setRowCount(0);
-
+        
         for (Product product : products) {
             boolean shouldAddProduct = false;
 
@@ -101,7 +107,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
             String price = String.valueOf(product.getPrice()).toLowerCase();
             String total = String.valueOf(product.getTotalAvailable()).toLowerCase();
             String createdAt = product.getCreatedAt().toString().toLowerCase();
-
+            
             if (filterType.equals("all")) {
                 // กรณีกรองทุกอย่าง
                 if (productId.contains(searchQueryString) || productName.contains(searchQueryString)
@@ -331,7 +337,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(loginButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
                 .addComponent(jlLicense)
                 .addContainerGap())
         );
@@ -697,7 +703,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
         userInfoMenuItem.setText(fullname + "  ( " + role + " | " + position + "  ) ");
         mainMenuBar.setVisible(true);
     }//GEN-LAST:event_loginButtonActionPerformed
-
+    
     public boolean validateUpdateStockItemData() {
         try {
             int productId = GlobalData.getInstance().getEditingProductId();
@@ -710,16 +716,16 @@ public class DatabaseApplication extends javax.swing.JFrame {
         }
         return true;
     }
-
+    
     private void openAddNewStockItemProduct() {
         filterTypes.setEnabled(false);
         addStockItemDataButton.setEnabled(false);
         searchTextField.setEnabled(false);
         productJTable.clearSelection();
         productJTable.setEnabled(false);
-
+        
         AddNewProduct frame = new AddNewProduct();
-
+        
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -734,7 +740,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
             }
         });
     }
-
+    
 
     private void gotoStockManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoStockManagementActionPerformed
         setScreen(Enums.Menu.StockManagement.getValue());
@@ -832,7 +838,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 // filter data again
             }
         }
-
+        
         refreshJTableProducts();
         filterProducts();
         unSelectStockManagementItem();
@@ -862,6 +868,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
         }
         refreshJTableProducts();
         filterProducts();
+        unSelectStockManagementItem();
     }//GEN-LAST:event_updateStockManagementItemButtonActionPerformed
 
     private void productJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productJTableMouseClicked
@@ -873,6 +880,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         FlatDarkLaf.setup();
+        FontLoader.loadFonts();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DatabaseApplication().setVisible(true);
@@ -934,7 +942,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
             if (editingProduct == null) {
                 return;
             }
-
+            
             String productName = editingProduct.getName();
             String productDescription = editingProduct.getDescription();
             double productPrice = editingProduct.getPrice();
@@ -958,62 +966,62 @@ public class DatabaseApplication extends javax.swing.JFrame {
             enableEditingStockManagementItem();
         }
     }
-
+    
     private void enableEditingStockManagementItem() {
         productNameTextField.setEnabled(true);
         productNameTextField.setEditable(true);
-
+        
         productPriceTextField.setEnabled(true);
         productPriceTextField.setEditable(true);
-
+        
         productTotalTextField.setEnabled(true);
         productTotalTextField.setEditable(true);
-
+        
         productDescriptionTextArea.setEnabled(true);
         productDescriptionTextArea.setEditable(true);
-
+        
         updateStockManagementItemButton.setEnabled(true);
-
+        
         deleteStockManagementItemButton.setEnabled(true);
-
+        
         deletedInfoText.setVisible(false);
     }
-
+    
     private void disableEditingStckManageMentItem() {
         productNameTextField.setEnabled(false);
         productNameTextField.setEditable(false);
-
+        
         productPriceTextField.setEnabled(false);
         productPriceTextField.setEditable(false);
-
+        
         productTotalTextField.setEnabled(false);
         productTotalTextField.setEditable(false);
-
+        
         productDescriptionTextArea.setEnabled(false);
         productDescriptionTextArea.setEditable(false);
-
+        
         updateStockManagementItemButton.setEnabled(false);
         deleteStockManagementItemButton.setEnabled(false);
     }
-
+    
     private void unSelectStockManagementItem() {
         GlobalData.getInstance().clearEditingProductId();
         productIdTextInfo.setText("Product ID : -");
         productNameTextField.setText("");
-
+        
         productPriceTextField.setText("");
-
+        
         productTotalTextField.setText("");
-
+        
         productDescriptionTextArea.setText("");
-
+        
         createAtTextInfo.setText("เพิ่มเข้าระบบเมื่อ : -");
         updateAtTextInfo.setText("อัพเดทล่าสุดเมื่อ : -");
         disableEditingStckManageMentItem();
         deletedInfoText.setVisible(false);
-
+        
     }
-
+    
     private void refreshJTableProducts() {
         DatabaseService.getInstance().refreshProducts();
         DefaultTableModel model = (DefaultTableModel) productJTable.getModel();
@@ -1024,33 +1032,34 @@ public class DatabaseApplication extends javax.swing.JFrame {
         }
         productJTable.repaint(); // อัพเดทการแสดงผลของตาราง
     }
-
+    
     private void onOpennedScreenStockManagement() {
         unSelectStockManagementItem();
         refreshJTableProducts();
     }
-
+    
     private void setScreen(int panelEnum) {
-
+        
         tpWindows.setSelectedIndex(panelEnum);
         if (panelEnum == Enums.Menu.StockManagement.getValue()) {
             onOpennedScreenStockManagement();
         }
     }
-
+    
     private String getEmail() {
         return emailTextField.getText();
     }
-
+    
     private String getPassword() {
         char[] passwordChars = passwordTextField.getPassword();
         String password = new String(passwordChars);
         return password;
     }
-
+    
     public boolean validateEmailPassword() {
         String email = getEmail();
         String password = getPassword();
+        if(email.equals("กรุณาใส่อีเมล..."))return false;
         return !(email.isEmpty() || password.isEmpty());
     }
 }
