@@ -47,6 +47,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `updateProduct` (IN `inProductId` IN
     WHERE product_id = inProductId;
 END$$
 
+DROP TRIGGER IF EXISTS `add_product_logs`$$
+CREATE TRIGGER `add_product_logs` AFTER INSERT ON `product`
+FOR EACH ROW
+BEGIN
+  INSERT INTO add_product_logs (employee_id, product_id, created_at)
+  VALUES (NEW.add_by_employee_id, NEW.product_id, NOW());
+END$$
+
 DELIMITER ;
 
 DROP TABLE IF EXISTS `add_product_logs`;
