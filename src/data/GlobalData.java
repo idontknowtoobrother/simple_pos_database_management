@@ -102,14 +102,7 @@ public class GlobalData {
 
     public void deleteProduct(Product delProduct) {
         // หาสินค้าที่ต้องการอัปเดตโดยใช้ ID ของสินค้า
-        if (DatabaseService.getInstance().deleteProductById(delProduct.getProductId()) == 1) {
-            for (Product product : products) {
-                if (product.getProductId() == delProduct.getProductId()) {
-                    products.remove(product);
-                    break;
-                }
-            }
-        }
+        DatabaseService.getInstance().deleteProductById(delProduct.getProductId());
     }
 
 }

@@ -41,9 +41,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
         mainMenuBar.setVisible(false);
-        
+
         JTableHeader productTableHeader = productJTable.getTableHeader();
-     
+
         productTableHeader.setFont(new Font("Noto Sans Thai", Font.PLAIN, 13));
 
         setScreen(Enums.Menu.Login.getValue());
@@ -331,6 +331,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
         tpWindows.addTab("Login", panelLogin);
 
         panelStockManagement.setBackground(new java.awt.Color(26, 35, 39));
+        panelStockManagement.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(26, 35, 39));
         jScrollPane1.setForeground(new java.awt.Color(26, 35, 39));
@@ -419,6 +420,8 @@ public class DatabaseApplication extends javax.swing.JFrame {
             productJTable.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
+        panelStockManagement.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 800, 318));
+
         updateStockManagementItemButton.setBackground(new java.awt.Color(61, 127, 161));
         updateStockManagementItemButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
         updateStockManagementItemButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -428,6 +431,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 updateStockManagementItemButtonActionPerformed(evt);
             }
         });
+        panelStockManagement.add(updateStockManagementItemButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(637, 586, -1, -1));
 
         addStockItemDataButton.setBackground(new java.awt.Color(61, 127, 161));
         addStockItemDataButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
@@ -438,6 +442,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 addStockItemDataButtonActionPerformed(evt);
             }
         });
+        panelStockManagement.add(addStockItemDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 330, -1, -1));
 
         deleteStockManagementItemButton.setBackground(new java.awt.Color(240, 92, 92));
         deleteStockManagementItemButton.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
@@ -448,6 +453,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 deleteStockManagementItemButtonActionPerformed(evt);
             }
         });
+        panelStockManagement.add(deleteStockManagementItemButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 586, -1, -1));
 
         searchTextField.setBackground(new java.awt.Color(26, 35, 39));
         searchTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 14)); // NOI18N
@@ -475,6 +481,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 searchTextFieldKeyTyped(evt);
             }
         });
+        panelStockManagement.add(searchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 331, 327, 29));
 
         filterTypes.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         filterTypes.setForeground(new java.awt.Color(255, 255, 255));
@@ -490,19 +497,23 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 filterTypesActionPerformed(evt);
             }
         });
+        panelStockManagement.add(filterTypes, new org.netbeans.lib.awtextra.AbsoluteConstraints(331, 330, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Filter:");
+        panelStockManagement.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 333, -1, -1));
 
         productIdTextInfo.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         productIdTextInfo.setForeground(new java.awt.Color(255, 255, 255));
         productIdTextInfo.setText("Product ID : -");
+        panelStockManagement.add(productIdTextInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 376, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Name :");
+        panelStockManagement.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 405, -1, -1));
 
         productNameTextField.setBackground(new java.awt.Color(94, 94, 94));
         productNameTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
@@ -512,6 +523,7 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 productNameTextFieldActionPerformed(evt);
             }
         });
+        panelStockManagement.add(productNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 404, 190, -1));
 
         productPriceTextField.setBackground(new java.awt.Color(94, 94, 94));
         productPriceTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
@@ -521,11 +533,13 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 productPriceTextFieldActionPerformed(evt);
             }
         });
+        panelStockManagement.add(productPriceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 435, 190, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Price :");
+        panelStockManagement.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 436, -1, -1));
 
         productTotalTextField.setBackground(new java.awt.Color(94, 94, 94));
         productTotalTextField.setFont(new java.awt.Font("Noto Sans Thai", 0, 12)); // NOI18N
@@ -535,21 +549,25 @@ public class DatabaseApplication extends javax.swing.JFrame {
                 productTotalTextFieldActionPerformed(evt);
             }
         });
+        panelStockManagement.add(productTotalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 466, 190, -1));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Total :");
+        panelStockManagement.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 467, -1, -1));
 
         createAtTextInfo.setBackground(new java.awt.Color(115, 211, 130));
         createAtTextInfo.setFont(new java.awt.Font("Noto Sans Thai", 0, 13)); // NOI18N
         createAtTextInfo.setForeground(new java.awt.Color(115, 211, 130));
         createAtTextInfo.setText("เพิ่มเข้าระบบเมื่อ : -");
+        panelStockManagement.add(createAtTextInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 503, -1, -1));
 
         updateAtTextInfo.setBackground(new java.awt.Color(255, 255, 255));
         updateAtTextInfo.setFont(new java.awt.Font("Noto Sans Thai", 0, 13)); // NOI18N
         updateAtTextInfo.setForeground(new java.awt.Color(61, 127, 161));
         updateAtTextInfo.setText("อัพเดทล่าสุดเมื่อ : -");
+        panelStockManagement.add(updateAtTextInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 529, -1, -1));
 
         productDescriptionTextArea.setBackground(new java.awt.Color(94, 94, 94));
         productDescriptionTextArea.setColumns(20);
@@ -559,111 +577,18 @@ public class DatabaseApplication extends javax.swing.JFrame {
         productDescriptionTextArea.setRows(5);
         jScrollPane2.setViewportView(productDescriptionTextArea);
 
+        panelStockManagement.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 404, 519, 170));
+
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Description :");
+        panelStockManagement.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 376, -1, -1));
 
         deletedInfoText.setFont(new java.awt.Font("Noto Sans Thai", 0, 17)); // NOI18N
         deletedInfoText.setForeground(new java.awt.Color(240, 92, 92));
         deletedInfoText.setText("ถูกลบออกจากคลังวันที่ -");
-
-        javax.swing.GroupLayout panelStockManagementLayout = new javax.swing.GroupLayout(panelStockManagement);
-        panelStockManagement.setLayout(panelStockManagementLayout);
-        panelStockManagementLayout.setHorizontalGroup(
-            panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(panelStockManagementLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStockManagementLayout.createSequentialGroup()
-                        .addComponent(addStockItemDataButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filterTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelStockManagementLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(createAtTextInfo)
-                                    .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(productTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(updateAtTextInfo)
-                                    .addComponent(deletedInfoText)))
-                            .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(productPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(productNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(productIdTextInfo))))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelStockManagementLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStockManagementLayout.createSequentialGroup()
-                        .addGap(0, 10, Short.MAX_VALUE)
-                        .addComponent(updateStockManagementItemButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteStockManagementItemButton)))
-                .addContainerGap())
-        );
-        panelStockManagementLayout.setVerticalGroup(
-            panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStockManagementLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filterTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(addStockItemDataButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(productIdTextInfo)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelStockManagementLayout.createSequentialGroup()
-                        .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(productNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(productPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(productTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(createAtTextInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateAtTextInfo)
-                        .addGap(0, 40, Short.MAX_VALUE))
-                    .addGroup(panelStockManagementLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE)))
-                .addGroup(panelStockManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteStockManagementItemButton)
-                    .addComponent(updateStockManagementItemButton)
-                    .addComponent(deletedInfoText))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        panelStockManagement.add(deletedInfoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 586, -1, -1));
 
         tpWindows.addTab("Stock Management", panelStockManagement);
 
@@ -761,29 +686,9 @@ public class DatabaseApplication extends javax.swing.JFrame {
         String fullname = GlobalData.getInstance().getCurrentLoginnedUser().getFirstname() + " " + GlobalData.getInstance().getCurrentLoginnedUser().getLastname();
         String role = GlobalData.getInstance().getCurrentLoginnedUser().getRole();
         String position = GlobalData.getInstance().getCurrentLoginnedUser().getPosition();
-        userInfoMenuItem.setText(fullname + "  (" + role + "| " + position + " ) ");
+        userInfoMenuItem.setText(fullname + "  ( " + role + " | " + position + "  ) ");
         mainMenuBar.setVisible(true);
     }//GEN-LAST:event_loginButtonActionPerformed
-
-    private void updateStockManagementItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateStockManagementItemButtonActionPerformed
-        // is editing product
-        if (GlobalData.getInstance().isEditingProduct()) {
-            // validate data type
-            if (validateUpdateStockItemData()) {
-                Product editedProduct = GlobalData.getInstance().getProductFromProductId(GlobalData.getInstance().getEditingProductId());
-                if (Notify.confirmOption(this, "ยืนยันการแก้ไข", "อัพเดทข้อมูลสินค้า " + editedProduct.getName() + " / " + "Product ID: " + editedProduct.getProductId() + " ?")) {
-                    editedProduct.setName(productNameTextField.getText());
-                    editedProduct.setDescription(productDescriptionTextArea.getText());
-                    editedProduct.setPrice(Double.parseDouble(productPriceTextField.getText()));
-                    editedProduct.setTotalAvailable(Integer.parseInt(productTotalTextField.getText()));
-                    // update to database
-                    GlobalData.getInstance().updateProductById(editedProduct);
-                    // filter data again
-                    filterProducts();
-                }
-            }
-        }
-    }//GEN-LAST:event_updateStockManagementItemButtonActionPerformed
 
     public boolean validateUpdateStockItemData() {
         try {
@@ -823,77 +728,6 @@ public class DatabaseApplication extends javax.swing.JFrame {
     }
 
 
-    private void addStockItemDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockItemDataButtonActionPerformed
-        unSelectStockManagementItem();
-        openAddNewStockItemProduct();
-
-    }//GEN-LAST:event_addStockItemDataButtonActionPerformed
-
-    private void deleteStockManagementItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStockManagementItemButtonActionPerformed
-        // is editing product
-        if (GlobalData.getInstance().isEditingProduct()) {
-            // validate data type
-            Product editedProduct = GlobalData.getInstance().getProductFromProductId(GlobalData.getInstance().getEditingProductId());
-            if (Notify.confirmOption(this, "ยืนยันการแก้ไข", "ลบสินค้า " + editedProduct.getName() + " / " + "Product ID: " + editedProduct.getProductId() + " ?")) {
-                // update to database
-                GlobalData.getInstance().deleteProduct(editedProduct);
-                // filter data again
-                filterProducts();
-            }
-        }
-    }//GEN-LAST:event_deleteStockManagementItemButtonActionPerformed
-
-    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTextFieldActionPerformed
-
-    private void filterTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTypesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_filterTypesActionPerformed
-
-    private void productNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productNameTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_productNameTextFieldActionPerformed
-
-    private void productPriceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productPriceTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_productPriceTextFieldActionPerformed
-
-    private void productTotalTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productTotalTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_productTotalTextFieldActionPerformed
-
-    private void productJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productJTableMouseClicked
-        onClickedStockManagementItem();
-    }//GEN-LAST:event_productJTableMouseClicked
-
-    private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
-    }//GEN-LAST:event_searchTextFieldKeyTyped
-
-    private void searchTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyPressed
-
-    }//GEN-LAST:event_searchTextFieldKeyPressed
-
-    private void filterTypesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterTypesItemStateChanged
-        refreshJTableProducts();
-        searchTextField.setText("ข้อมูลการค้นหา...");
-        unSelectStockManagementItem();
-    }//GEN-LAST:event_filterTypesItemStateChanged
-
-    private void searchTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusGained
-        if (searchTextField.getText().equals("ข้อมูลการค้นหา...")) {
-            searchTextField.setText("");
-            searchTextField.setForeground(Color.WHITE);
-        }
-    }//GEN-LAST:event_searchTextFieldFocusGained
-
-    private void searchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusLost
-        if (searchTextField.getText().equals("")) {
-            searchTextField.setText("ข้อมูลการค้นหา...");
-            searchTextField.setForeground(new Color(201, 209, 217));
-        }
-    }//GEN-LAST:event_searchTextFieldFocusLost
-
     private void gotoStockManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoStockManagementActionPerformed
         setScreen(Enums.Menu.StockManagement.getValue());
         mainMenuBar.setVisible(true);
@@ -920,16 +754,111 @@ public class DatabaseApplication extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutApplicationActionPerformed
 
     private void emailTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailTextFieldFocusGained
-        if(emailTextField.getText().equals("กรุณาใส่อีเมล...")) {
+        if (emailTextField.getText().equals("กรุณาใส่อีเมล...")) {
             emailTextField.setText("");
         }
     }//GEN-LAST:event_emailTextFieldFocusGained
 
     private void emailTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailTextFieldFocusLost
-        if(emailTextField.getText().equals("")) {
+        if (emailTextField.getText().equals("")) {
             emailTextField.setText("กรุณาใส่อีเมล...");
         }
     }//GEN-LAST:event_emailTextFieldFocusLost
+
+    private void productTotalTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productTotalTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productTotalTextFieldActionPerformed
+
+    private void productPriceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productPriceTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productPriceTextFieldActionPerformed
+
+    private void productNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productNameTextFieldActionPerformed
+
+    private void filterTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTypesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterTypesActionPerformed
+
+    private void filterTypesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterTypesItemStateChanged
+        refreshJTableProducts();
+        searchTextField.setText("ข้อมูลการค้นหา...");
+        unSelectStockManagementItem();
+    }//GEN-LAST:event_filterTypesItemStateChanged
+
+    private void searchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyTyped
+
+    }//GEN-LAST:event_searchTextFieldKeyTyped
+
+    private void searchTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyPressed
+
+    }//GEN-LAST:event_searchTextFieldKeyPressed
+
+    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextFieldActionPerformed
+
+    private void searchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusLost
+        if (searchTextField.getText().equals("")) {
+            searchTextField.setText("ข้อมูลการค้นหา...");
+            searchTextField.setForeground(new Color(201, 209, 217));
+        }
+    }//GEN-LAST:event_searchTextFieldFocusLost
+
+    private void searchTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusGained
+        if (searchTextField.getText().equals("ข้อมูลการค้นหา...")) {
+            searchTextField.setText("");
+            searchTextField.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTextFieldFocusGained
+
+    private void deleteStockManagementItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStockManagementItemButtonActionPerformed
+        // is editing product
+        if (GlobalData.getInstance().isEditingProduct()) {
+            // validate data type
+            Product editedProduct = GlobalData.getInstance().getProductFromProductId(GlobalData.getInstance().getEditingProductId());
+            if (Notify.confirmOption(this, "ยืนยันการแก้ไข", "ลบสินค้า " + editedProduct.getName() + " / " + "Product ID: " + editedProduct.getProductId() + " ?")) {
+                // update to database
+                GlobalData.getInstance().deleteProduct(editedProduct);
+                // filter data again
+            }
+        }
+
+        refreshJTableProducts();
+        filterProducts();
+        unSelectStockManagementItem();
+    }//GEN-LAST:event_deleteStockManagementItemButtonActionPerformed
+
+    private void addStockItemDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockItemDataButtonActionPerformed
+        unSelectStockManagementItem();
+        openAddNewStockItemProduct();
+    }//GEN-LAST:event_addStockItemDataButtonActionPerformed
+
+    private void updateStockManagementItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateStockManagementItemButtonActionPerformed
+        // is editing product
+        if (GlobalData.getInstance().isEditingProduct()) {
+            // validate data type
+            if (validateUpdateStockItemData()) {
+                Product editedProduct = GlobalData.getInstance().getProductFromProductId(GlobalData.getInstance().getEditingProductId());
+                if (Notify.confirmOption(this, "ยืนยันการแก้ไข", "อัพเดทข้อมูลสินค้า " + editedProduct.getName() + " / " + "Product ID: " + editedProduct.getProductId() + " ?")) {
+                    editedProduct.setName(productNameTextField.getText());
+                    editedProduct.setDescription(productDescriptionTextArea.getText());
+                    editedProduct.setPrice(Double.parseDouble(productPriceTextField.getText()));
+                    editedProduct.setTotalAvailable(Integer.parseInt(productTotalTextField.getText()));
+                    // update to database
+                    GlobalData.getInstance().updateProductById(editedProduct);
+                    // filter data again
+                }
+            }
+        }
+        refreshJTableProducts();
+        filterProducts();
+    }//GEN-LAST:event_updateStockManagementItemButtonActionPerformed
+
+    private void productJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productJTableMouseClicked
+        onClickedStockManagementItem();
+    }//GEN-LAST:event_productJTableMouseClicked
 
     /**
      * @param args the command line arguments
